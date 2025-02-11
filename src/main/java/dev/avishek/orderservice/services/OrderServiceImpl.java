@@ -7,6 +7,7 @@ import dev.avishek.orderservice.repositories.OrderRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Primary
@@ -26,6 +27,10 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderNotFoundException("Order not found with id: "+id);
         }
         return orderOptional.get();
+    }
+
+    public List<Order> getAllOrderOfUser(Long userId) {
+        return orderRepository.findAllByUserId(userId);
     }
 
     private Order convertOrderRequestDtoToOrder(OrderRequestDto orderRequestDto) {
