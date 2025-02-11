@@ -1,12 +1,12 @@
 package dev.avishek.orderservice.controllers;
 
 import dev.avishek.orderservice.dtos.OrderRequestDto;
+import dev.avishek.orderservice.exceptions.OrderNotFoundException;
 import dev.avishek.orderservice.models.Order;
 import dev.avishek.orderservice.services.OrderService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -14,6 +14,15 @@ public class OrderController {
     private OrderService orderService;
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) throws OrderNotFoundException {
+        Order order = orderService.getOrder(id);
+        ResponseEntity<Order> responseEntity = new ResponseEntity<>(
+                order,
+                HttpStatus.OK
+        );
+        return responseEntity;
     }
     @PostMapping()
     public Order createOrder(@RequestBody OrderRequestDto requestDto) {
