@@ -14,5 +14,4 @@ public class Order extends BaseModel{
     private Long userId;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.PENDING;
-    private Double orderAmount;
 }

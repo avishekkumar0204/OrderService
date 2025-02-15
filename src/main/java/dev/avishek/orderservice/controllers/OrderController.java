@@ -1,6 +1,7 @@
 package dev.avishek.orderservice.controllers;
 
 import dev.avishek.orderservice.dtos.OrderRequestDto;
+import dev.avishek.orderservice.dtos.OrderResponseDto;
 import dev.avishek.orderservice.exceptions.OrderNotFoundException;
 import dev.avishek.orderservice.models.Order;
 import dev.avishek.orderservice.services.OrderService;
@@ -18,9 +19,9 @@ public class OrderController {
         this.orderService = orderService;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) throws OrderNotFoundException {
-        Order order = orderService.getOrder(id);
-        ResponseEntity<Order> responseEntity = new ResponseEntity<>(
+    public ResponseEntity<OrderResponseDto> getOrder(@PathVariable("id") Long id) throws OrderNotFoundException {
+        OrderResponseDto order = orderService.getOrder(id);
+        ResponseEntity<OrderResponseDto> responseEntity = new ResponseEntity<>(
                 order,
                 HttpStatus.OK
         );
